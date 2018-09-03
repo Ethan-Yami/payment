@@ -33,7 +33,7 @@
 			 
             if(!empty($from) && $from=='auth' && !empty($salt)){
             	$_paydata['alipay_payment'] = $this->session->userdata($salt);            	           	
-            	$this->Member_model->update($_paydata,'user',array('id'=>$this->_organization['id']));
+            	$this->Member_model->update($_paydata,'users',array('id'=>$this->_organization['id']));
             	redirect('/manage/index','refresh');
             }
 
@@ -46,7 +46,7 @@
 			$data['salt'] = $salt;
 
 			$stores = $this->Member_model->get('hotspot_branch',['salt','branch','id'],['uid'=>$uid]);
-			$bech = $this->Member_model->first('user',["*"],['id'=>$uid]);
+			$bech = $this->Member_model->first('users',["*"],['id'=>$uid]);
 			$data = array_merge($data,['result'=>$stores,'bech'=>$bech,'now'=>time()]);			
 		
             $this->load->library('twig');

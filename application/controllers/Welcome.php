@@ -31,8 +31,9 @@ class Welcome extends CI_Controller {
 		}else{		
 			$lang = $this->input->get('lang', TRUE);
        		$this->load->library('Lang', array('lang'=>$lang), 'Switch');
-       		$data = $this->Switch->sign_in();	   			
-				$this->load->library('twig');
+       		$data = $this->Switch->init('signin');	   		
+       		  
+			$this->load->library('twig');
 			$this->twig->display('index/signin.php',$data);					
 		}
 		

@@ -273,11 +273,12 @@ switch ($step) {
             $password = md5($password);
             $salt = sha1($username.$password.time());
            // $query ="INSERT INTO `{$dbPrefix}user`(username,password,email,salt,level,ip,created,addtime)VALUES('{$username}', '{$password}', '{$email}', '{$salt}', '8','{$ip}','{$create_date}','{$time}');";
-            $query ="INSERT INTO `{$dbPrefix}user`(username,password,email,salt,level,addtime)VALUES('{$username}', '{$password}', '{$email}', '{$salt}', '8','{$time}');";
+            $query ="INSERT INTO `{$dbPrefix}users`(username,password,email,salt,level)VALUES('{$username}', '{$password}', '{$email}', '{$salt}', '8');";
             $conn->query($query);
-            /*$message = '成功添加管理员<br />成功写入配置文件<br>安装完成．';*/
+          /*  $message = '成功添加管理员<br />成功写入配置文件<br>安装完成．';*/
             /*$arr = array('status' => 'notice', 'msg' => $message);
             echo json_encode($arr);*/
+            //$arr = array('status' => 'notice', 'msg' =>$query);
             $arr = array('status' => 'success', 'msg' =>'恭喜您数据库初始化完成!');
             //$arr = array('status' => 'success', 'msg' =>$query);
             //$arr = array('n' => 999999, 'msg' => $message);

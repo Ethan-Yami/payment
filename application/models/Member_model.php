@@ -260,6 +260,17 @@
 
 		}
 
+		public function save($data=array(),$db,$where=array()){
+
+			foreach ($where as $key => $value) {
+				$this->db->where($key,$value);
+			}
+
+			$this->db->update($db, $data);
+
+			return $this->db->affected_rows();
+
+		}
 
 
 		public function delete($where=array(),$db){

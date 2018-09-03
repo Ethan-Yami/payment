@@ -70,9 +70,10 @@ CREATE TABLE `t_users` (
   `cellphone` varchar(64) DEFAULT NULL,
   `email` varchar(64) DEFAULT NULL,
   `avatar` text,
+  `level` int(10) DEFAULT 1,
   `permission` tinyint(1) DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
