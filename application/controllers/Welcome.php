@@ -27,6 +27,7 @@ class Welcome extends CI_Controller {
        		&& !empty($this->_saler['salt']) 
        		&& !empty($this->_saler['id'])
        	){
+       		$this->load->helper('url');
        		redirect('manage');
 		}else{		
 			$lang = $this->input->get('lang', TRUE);
