@@ -325,9 +325,9 @@ function sql_execute($sql, $tablepre) {
 
 function sql_split($sql, $tablepre) {
     //$s_tablepre = "ros_";
-    $s_tablepre = "t_";
-    if ($tablepre != "t_")
-        $sql = str_replace("t_", $tablepre, $sql);
+    $s_tablepre = "zh_";
+    if ($tablepre != "zh_")
+        $sql = str_replace("zh_", $tablepre, $sql);
     $sql = preg_replace("/TYPE=(InnoDB|MyISAM|MEMORY)( DEFAULT CHARSET=[^; ]+)?/", "ENGINE=\\1 DEFAULT CHARSET=utf8", $sql);
 
     if ($tablepre != $s_tablepre)
