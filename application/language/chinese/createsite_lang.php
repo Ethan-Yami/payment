@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-$lang['step1'] = "站点信息";
+$lang['step1'] = "店铺信息";
 $lang['step2'] = "账号信息";
 $lang['step3'] = "设备信息";
 $lang['step4'] = "完成";
 $lang['next'] = "下一步";
 $lang['previous'] = "上一步";
-$lang['step1_title'] = '创建一个站点';
+$lang['step1_title'] = '创建一个店铺';
 $lang['brand'] = "品牌类型";
-$lang['site'] = "站点名称";
+$lang['site'] = "店铺名称";
 $lang['redirect'] = "跳转 URL";
 $lang['ip_mikrotik'] = "Hotspot IP地址";
 $lang['ip_ubnt'] = "Unifi Controller IP地址";

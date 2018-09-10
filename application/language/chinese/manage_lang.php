@@ -1,7 +1,7 @@
 <?php 
 
 defined('BASEPATH') OR exit('No direct script access allowed');
-$lang['create_branch'] = "创建站点";
+$lang['create_branch'] = "创建店铺";
 $lang['organization'] = "公司名称";
 $lang['company'] = "优思网络";
 $lang['title'] = "管理 - Cloud hotspot";

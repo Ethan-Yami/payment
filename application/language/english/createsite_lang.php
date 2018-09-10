@@ -1,15 +1,15 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
-$lang['step1'] = "Site Info";
+$lang['step1'] = "Store Info";
 $lang['step2'] = "Account Info";
 $lang['step3'] = "Device Info";
 $lang['step4'] = "Success";
 $lang['next'] = "Next";
 $lang['previous'] = "Previous";
-$lang['step1_title'] = 'Create a Site';
+$lang['step1_title'] = 'Create a Store';
 $lang['brand'] = "Brand type";
-$lang['site'] = "Site name";
+$lang['site'] = "Store name";
 $lang['redirect'] = "Redirect URL";
 $lang['ip_mikrotik'] = "IP address of Hotspot Provider ";
 $lang['ip_ubnt'] = "IP address of Unifi Controller ";

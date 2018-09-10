@@ -41,12 +41,13 @@
             <div class="items">
                 <div class="page">
                     <h3>{{step1_title}}</h3>
+                    <!-- 
                     <p>
                         <label>{{brand}}：</label>
                         <input type="radio" class="brand-type" value="ubnt" checked="checked" name="data[brand]">Ubiquiti
-                        <input type="radio" class="brand-type" value="mikrotik" name="data[brand]">Mikrotik
-                       
-                    </p>
+                        <input type="radio" class="brand-type" value="mikrotik" name="data[brand]">Mikrotik                       
+                    </p> 
+                    -->
                     <p>
                         <label>{{site}}：</label>
                         <input type="text" class="input" id="branch" name="data[branch]" placeholder=""/>
@@ -118,7 +119,7 @@
                         <br/>
                         <br/>
                         <div class="btn_nav">
-                            <input type="hidden" id="download" value="">                           
+                          <!--   <input type="hidden" id="download" value="">          -->                  
                             <input type="button" onclick="tutorial('https://www.cloudshotspot.com/blog/configure-unifi-controller.html')" value="{{tutorial_unifi}}"/>        
                         </div>
                     </div>
