@@ -9,7 +9,7 @@
         #wizard .right{float:right;}
         #wizard #status{height:35px;background:#123;padding-left:25px !important;}
         #status {list-style: none;}
-        #status li{float:left;color:#fff;padding:10px 30px;}
+        #status li{float:left;color:#fff;padding:10px 56px;}
         #status li.active{background-color:#369;font-weight:normal;}
         .input{width:240px; height:18px; margin:10px auto; line-height:20px; border:1px solid #d3d3d3; padding:2px}
         .page{padding:20px 30px;width:500px;float:left;}
@@ -33,34 +33,34 @@
         <div id="wizard">
             <ul id="status">
                 <li class="active"><strong>1.</strong>{{step1}}</li>
-                <li><strong>2.</strong>{{step2}}</li>
-                <li><strong>3.</strong>{{step3}}</li>
+                <li><strong>2.</strong>{{step2}}</li>             
                 <li><strong>4.</strong>{{step4}}</li>
             </ul>
 
             <div class="items">
                 <div class="page">
                     <h3>{{step1_title}}</h3>
-                    <!-- 
+                    
+                    <!-- <p>
+                        <label>{{store_type}}：</label>
+                        <input type="radio" class="brand-type" value="ubnt" checked="checked" name="data[brand]">{{store_restaurant}}
+                        <input type="radio" class="brand-type" value="mikrotik" name="data[brand]">{{store_shop}}                     
+                    </p>  -->
+                    
                     <p>
-                        <label>{{brand}}：</label>
-                        <input type="radio" class="brand-type" value="ubnt" checked="checked" name="data[brand]">Ubiquiti
-                        <input type="radio" class="brand-type" value="mikrotik" name="data[brand]">Mikrotik                       
-                    </p> 
-                    -->
-                    <p>
-                        <label>{{site}}：</label>
-                        <input type="text" class="input" id="branch" name="data[branch]" placeholder=""/>
+                        <label>{{store}}：</label>
+                        <input type="text" class="input" id="store_name" name="data[store_name]" placeholder=""/>
                     </p>
 
                     <p>
-                        <label id="brand-ip" data-ubnt='{{ip_ubnt}}'>{{store_contact}}：</label>
-                        <input type="text" class="input" id="ip" name="data[ip]" placeholder="" value=""/>
+                        <label>{{store_contact}}：</label>
+                        <input type="text" class="input" id="store_contact" name="data[store_contact]" placeholder="" value=""/>
                     </p>
                    
 
                     <p>
-                        <label>{{store_address}}：</label><input type="text" class="input" id="url" name="data[url]" placeholder=""/></p>
+                        <label>{{store_address}}：</label>
+                        <input type="text" class="input" id="store_address" name="data[store_address]"/></p>
                     <div class="btn_nav">
                         <input type="button" class="next right" value="{{next}}&raquo;" />
                     </div>
@@ -68,15 +68,15 @@
                 <div class="page">
                     <h3>{{step2_title}}</h3>
                     <p>
-                        <label id='user-text'>{{user_ubnt}}:</label>
-                        <input type="text" class="input" id="user" name="user[username]" placeholder=""  />
+                        <label id='user-text'>{{store_user}}:</label>
+                        <input type="text" class="input" id="user" name="user[account]" placeholder=""  />
                     </p>
                     <p>
-                        <label id='pass-text'>{{pass_ubnt}}:</label>
+                        <label id='pass-text'>{{store_pass}}:</label>
                         <input type="password" id="pass" class="input" name="user[password]"  placeholder=""/>
                     </p>
                     <p>
-                        <label>{{pass_confirm}}：</label>
+                        <label>{{store_confirm}}：</label>
                         <input type="password" id="pass1" class="input" name="user[confirm]" placeholder=""/>
                     </p>
 
@@ -85,33 +85,11 @@
                         <input type="button" class="next right" value="{{next}}&raquo;" />                 
                     </div>
                 </div>
-                <div class="page">
-                    <h3>{{step3_title}}<br/></h3>
-                    <p>                       
-                        <textarea rows="18" id="ap" name="ap" cols="68" placeholder="{{ap_fill}}"></textarea>
-                    </p>
-
-                    <div class="btn_nav">
-                        <input type="button" class="prev" style="float:left" value="&laquo;{{previous}}" />
-                        <input type="button" class="right apply" value="{{next}}&raquo;" />
-                        <input type="hidden" class="next" id="success"/>
-                    </div>
-                </div>
+              
                 <div class="page">
                     <h3>{{success_title}}<br/><em>{{success_sub_title}}</em></h3>
                     <h4>{{congratulations}}</h4>
-                    <div id="mikrotik-down" style="display: none;">
-                        <p>{{mikrotik_download}}</p>
-                        <p>{{mikrotik_tutorials}}</p>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <div class="btn_nav">
-                            <input type="hidden" id="download" value="">
-                            <input type="button" value="{{download}}" onclick="downloads();"/>
-                            <input type="button" class="right" value="{{tutorial_mikrotik}}"/>        
-                        </div>
-                    </div>
+                  
 
                     <div id="ubnt-down">                        
                         <p>{{ubiquiti_tutorials}}</p>                     
@@ -209,31 +187,7 @@
 
         });
 
-        $(".brand-type").click(function(event) {
-            /* Act on the event */
-            let type = $(this).val();//$('input[name="brand"]:checked').val();
-            let mikrotik = $("#brand-ip").data('mikrotik');
-            let ubnt = $("#brand-ip").data('ubnt');         
-            let user_ubnt = "{{user_ubnt}}";
-            let user_mikrotik = "{{user_mikrotik}}";
-            let pass_ubnt = "{{pass_ubnt}}";
-            let pass_mikrotik = "{{pass_mikrotik}}";
-            if(type=='mikrotik'){              
-               $("#brand-ip").text(mikrotik);   
-               $("#user-text").text(user_mikrotik);        
-               $("#pass-text").text(pass_mikrotik);
-               $("#mikrotik-down").show();  
-               $("#ubnt-down").hide();        
-            }else if(type=='ubnt'){
-               $("#brand-ip").text(ubnt);   
-               $("#user-text").text(user_ubnt);        
-               $("#pass-text").text(pass_ubnt); 
-               $("#mikrotik-down").hide();        
-               $("#ubnt-down").show();        
-            }
-                        
-            console.log(type);
-        });
+      
     });
 
 
