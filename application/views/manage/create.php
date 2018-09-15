@@ -54,13 +54,13 @@
                     </p>
 
                     <p>
-                        <label id="brand-ip" data-ubnt='{{ip_ubnt}}' data-mikrotik='{{ip_mikrotik}}'>{{ip_ubnt}}：</label>
-                        <input type="text" class="input" id="ip" name="data[ip]" placeholder="" value="192.168.88.1"/>
+                        <label id="brand-ip" data-ubnt='{{ip_ubnt}}'>{{store_contact}}：</label>
+                        <input type="text" class="input" id="ip" name="data[ip]" placeholder="" value=""/>
                     </p>
                    
 
                     <p>
-                        <label>{{redirect}}：</label><input type="text" class="input" id="url" name="data[url]" placeholder="http://www.google.com" value="http://www.google.com"/></p>
+                        <label>{{store_address}}：</label><input type="text" class="input" id="url" name="data[url]" placeholder=""/></p>
                     <div class="btn_nav">
                         <input type="button" class="next right" value="{{next}}&raquo;" />
                     </div>
