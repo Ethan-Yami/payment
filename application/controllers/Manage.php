@@ -71,31 +71,19 @@
 
 					$data = $this->input->post('data');
 					$user = $this->input->post('user');
-					$ap = $this->input->post('ap');
-				
-					$aps = explode('@', $ap);
+					
 
 				
 					$_uid = $this->_organization['id'];
-					$this->load->model('Member_model');
-					$branch['branch'] = $data['branch'];
-					$branch['brand'] = $data['brand'];
-					$branch['site_name'] = $data['branch'];
-					$branch['uid'] = $_uid;
-					/*$branch['organization_id'] = $_uid;*/
-					$access_info = array(
-						'url'=>$data['url'],
-						'ip'=>$data['ip'],
-						'username'=>$user['username'],
-						'password'=>$user['password'],
-						);
-					$branch['access_info'] = json_encode($access_info);
+			
+				
+				
 					$branch['salt'] = sha1(time().mt_rand(1,999));
-					$branch['addtime'] = time();
+					$branch['created_at'] = time();
 
 					//加载计费模块
-					$nexttime = strtotime(date('Y-m-d H:i:s',time())."+ 7 day");
-					$branch['overdue'] = $nexttime;
+					/*$nexttime = strtotime(date('Y-m-d H:i:s',time())."+ 7 day");
+					$branch['overdue'] = $nexttime;*/
 
 					$bid = $this->Member_model->insert('hotspot_branch',$branch);
 
@@ -104,7 +92,7 @@
 						$this->Member_model->insert('hotspot_ap',$tmp);
 					}
 				
-					$_data = array('branch'=>$branch['branch'],'salt'=>$branch['salt'],'overdue'=>date("Y-m-d",$nexttime));
+					$_data = array('branch'=>$branch['store_name'],'salt'=>$branch['salt']);
 					echo json_encode(array('status'=>"success",'id'=>$bid,'data'=>$_data));
 					exit();
 				}

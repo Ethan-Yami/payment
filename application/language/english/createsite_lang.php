@@ -12,6 +12,7 @@ $lang['brand'] = "Brand type";
 $lang['store_type'] = "Store type";
 $lang['store_restaurant'] = "Restaurant";
 $lang['store_coffeebar'] = "Coffee Bar";
+$lang['store_bubbletea'] = "Bubble Tea";
 $lang['store'] = "Store name";
 $lang['store_contact'] = "Store Contact Info";
 $lang['store_address'] = "Store Address";

@@ -9,7 +9,7 @@
         #wizard .right{float:right;}
         #wizard #status{height:35px;background:#123;padding-left:25px !important;}
         #status {list-style: none;}
-        #status li{float:left;color:#fff;padding:10px 56px;}
+        #status li{float:left;color:#fff;padding:10px 60px;}
         #status li.active{background-color:#369;font-weight:normal;}
         .input{width:240px; height:18px; margin:10px auto; line-height:20px; border:1px solid #d3d3d3; padding:2px}
         .page{padding:20px 30px;width:500px;float:left;}
@@ -41,15 +41,16 @@
                 <div class="page">
                     <h3>{{step1_title}}</h3>
                     
-                    <!-- <p>
+                    <p>
                         <label>{{store_type}}：</label>
                         <input type="radio" class="brand-type" value="ubnt" checked="checked" name="data[brand]">{{store_restaurant}}
-                        <input type="radio" class="brand-type" value="mikrotik" name="data[brand]">{{store_shop}}                     
-                    </p>  -->
+                        <input type="radio" class="brand-type" value="1" name="data[brand]">{{store_coffeebar}}    
+                        <input type="radio" class="brand-type" value="2" name="data[brand]">{{store_bubbletea}}                     
+                    </p>
                     
                     <p>
                         <label>{{store}}：</label>
-                        <input type="text" class="input" id="store_name" name="data[store_name]" placeholder=""/>
+                        <input type="text" class="brand-type" value="3" name="data[store_name]"/>
                     </p>
 
                     <p>
@@ -154,42 +155,40 @@
                         return false;
                     }
 
+
+                    postCreatData();
+
+
+
                 }
             }
         });
-        $(".apply").click(function(){
-
-            let ap = $("#ap").val();
-
-            if(ap==''){
-                alert("The AP's MAC address can not be empty!");
-                return false;
-            }
-
-            let data = $("form").serialize();
-
-            $.ajax({
-                url: "?",
-                type: 'POST',
-                dataType: 'json',
-                data: data,
-            })
-            .done(function(ret) {
-                if(ret.status=='success'){
-                    explode(ret.data);
-                    $("#download").val(ret.id);
-                    $("#success").click();
-                }else if(ret.status=='false'){
-                    alert(ret.message);
-                }
-            });
-
-
-        });
+        
 
       
     });
 
+    function postCreatData(){
+
+
+        var data = $("form").serialize();
+
+        $.ajax({
+            url: "?",
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+        })
+        .done(function(ret) {
+            if(ret.status=='success'){
+                explode(ret.data);
+                $("#download").val(ret.id);
+                $("#success").click();
+            }else if(ret.status=='false'){
+                alert(ret.message);
+            }
+        });
+    }
 
     function explode(config){
       var data = "<div class=\"col-md-3 col-sm-4 col-xs-6\"><div class=\"col-xs-12 choise_css\"><div class=\"panel text-center\"><div class=\"panel-body\"><i class=\"fa fa-dropbox fa-5x\" onclick=\"window.open('/hotspot/index?accesskey="+config['salt']+"','_blank')\"></i><h4>"+config['branch']+"</h4><span>"+config['overdue']+"</span></div></div></div></div>";
