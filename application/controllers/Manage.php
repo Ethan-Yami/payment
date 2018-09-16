@@ -69,7 +69,7 @@
 
 	 			if($this->input->post()){
 
-					$data = $this->input->post('data');
+					$store = $this->input->post('data');
 					$user = $this->input->post('user');
 					
 
@@ -77,22 +77,15 @@
 					$_uid = $this->_organization['id'];
 			
 				
+					$store['user_id'] = $uid;
+					$store['salt'] = sha1(time().mt_rand(1,999));
+					$store['created_at'] = time();
+
 				
-					$branch['salt'] = sha1(time().mt_rand(1,999));
-					$branch['created_at'] = time();
+					$bid = $this->Member_model->insert('stores',$store);
 
-					//加载计费模块
-					/*$nexttime = strtotime(date('Y-m-d H:i:s',time())."+ 7 day");
-					$branch['overdue'] = $nexttime;*/
-
-					$bid = $this->Member_model->insert('hotspot_branch',$branch);
-
-					foreach ($aps as $k => $mac) {
-						$tmp = array('user_id'=>$_uid,'site_id'=>$bid,'mac'=>$mac);
-						$this->Member_model->insert('hotspot_ap',$tmp);
-					}
 				
-					$_data = array('branch'=>$branch['store_name'],'salt'=>$branch['salt']);
+					$_data = array('branch'=>$store['store_name'],'salt'=>$store['salt']);
 					echo json_encode(array('status'=>"success",'id'=>$bid,'data'=>$_data));
 					exit();
 				}
