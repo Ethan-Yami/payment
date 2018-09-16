@@ -162,7 +162,7 @@
           <div class="panel-body">
               <i class="fa fa-dropbox fa-5x" onclick="opens('/hotspot/index?accesskey={{v['salt']}}');"></i>
               <!-- <i class="fa fa-dropbox fa-5x" onclick="window.open('/store/index/portal?accesskey={{v['salt']}}','_blank')"></i> -->
-              <h4>{{v['branch']}}</h4>
+              <h4>{{v['store_name']}}</h4>
               <span>{{ v['overdue']|date("Y-m-d")}}</span>
           </div>        
         </div>

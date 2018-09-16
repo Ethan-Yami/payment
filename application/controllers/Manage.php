@@ -45,7 +45,7 @@
           	$data['from'] = $from;
 			$data['salt'] = $salt;
 
-			$stores = $this->Member_model->get('hotspot_branch',['salt','branch','id'],['uid'=>$uid]);
+			$stores = $this->Member_model->get('stores',['salt','store_name','id'],['user_id'=>$uid]);
 			$bech = $this->Member_model->first('users',["*"],['id'=>$uid]);
 			$data = array_merge($data,['result'=>$stores,'bech'=>$bech,'now'=>time()]);			
 		
@@ -71,17 +71,13 @@
 
 					$store = $this->input->post('data');
 					$user = $this->input->post('user');
-					
-
 				
-					$_uid = $this->_organization['id'];
-			
-				
-					$store['user_id'] = $uid;
+					$store['user_id'] = $this->_organization['id'];
 					$store['salt'] = sha1(time().mt_rand(1,999));
 					$store['created_at'] = time();
 
-				
+					$this->load->model('Member_model');
+
 					$bid = $this->Member_model->insert('stores',$store);
 
 				

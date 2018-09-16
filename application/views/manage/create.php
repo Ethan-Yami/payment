@@ -43,9 +43,9 @@
                     
                     <p>
                         <label>{{store_type}}：</label>
-                        <input type="radio" class="brand-type" value="ubnt" checked="checked" name="data[brand]">{{store_restaurant}}
-                        <input type="radio" class="brand-type" value="1" name="data[brand]">{{store_coffeebar}}    
-                        <input type="radio" class="brand-type" value="2" name="data[brand]">{{store_bubbletea}}                     
+                        <input type="radio" class="brand-type" value="1" checked="checked" name="data[store_type]">{{store_restaurant}}
+                        <input type="radio" class="brand-type" value="2" name="data[store_type]">{{store_coffeebar}}    
+                        <input type="radio" class="brand-type" value="3" name="data[store_type]">{{store_bubbletea}}                     
                     </p>
                     
                     <p>
