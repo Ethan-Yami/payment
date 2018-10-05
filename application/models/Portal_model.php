@@ -218,13 +218,11 @@ class Portal_model extends CI_Model {
 
 	public function branch($where){
 		
-		$bech = $this->first(array('*'),'hotspot_branch',$where);
+		$bech = $this->first(array('*'),'stores',$where);
 
 	    if(empty($bech)) self::message('节点不存在');
 
-	    if(empty($bech['access_info'])) 
-	    	self::message('请上传生节点文件至ros中,IP要与hotspot一致');	
-	    $bech['access_info'] = json_decode($bech['access_info'],true);
+	   
 
         //var_dump($bech);exit();
 	    return $bech;

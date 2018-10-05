@@ -46,7 +46,7 @@
 		
 			/*$this->redirect('/hotspot/base?accesskey='.$accesskey);*/
 			$this->load->library('twig');	
-			$this->twig->display('hotspot/index.php', $data);
+			$this->twig->display('stores/index.php', $data);
 			
 	    }
 	

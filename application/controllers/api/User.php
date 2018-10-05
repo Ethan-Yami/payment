@@ -39,15 +39,32 @@ class User extends CI_Controller {
             $salt = sha1($user['id']+time().$flag);
             $this->member_model->save(['salt'=>$salt],'users',['id'=>$user['id']]);
             $user['salt'] = $salt;
+            $user['token'] = $salt;
             $rest['status'] = 200;
-            $rest["data"] = $user;
+            $rest["result"] = $user;
             $rest["message"] = "登录成功!";
          
         }else{
             $rest["message"] = "用户名或密码错误!";
+            $rest["result"] = array('user' => $account,'password'=>$password,'resut'=>$_REQUEST );
         }
     
         echo json_encode($rest);
+    }
+
+    function SignIn(){
+
+        $result = [
+            'avatar'=>"https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+            'introduction'=>'我是超级管理员',
+            'name'=>'Super Admin',
+            'roles'=>["admin"],
+            'token'=>'admin'
+            ];
+
+        echo json_encode($result);
+
+
     }
 
     
