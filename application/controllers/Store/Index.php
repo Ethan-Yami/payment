@@ -12,7 +12,7 @@
 			'username'			=> $this->session->userdata('username'),
 			'id'				=> $this->session->userdata('id'),
 			'accesskey'			=> $this->session->userdata('accesskey'),
-            'branch_id'			=> $this->session->userdata('branch_id'),
+            'store_id'			=> $this->session->userdata('store_id'),
 		];
 
 		if(empty($organization['id']) || empty($organization['salt']) || empty($organization['username']))
@@ -27,11 +27,12 @@
 			if(!$accesskey || empty($accesskey)) return false;
 
 	    	$this->load->model('Portal_model');
-	    	$bech = $this->Portal_model->branch(array('salt'=>$accesskey));	    	
+	    	$bech = $this->Portal_model->branch(array('salt'=>$accesskey));	   
+	    	
 	    	
 	    	$data = array(
                'accesskey'  => 	$accesskey,
-               'branch_id'  =>  $bech['id'],              
+               'store_id'  =>  $bech['id'],              
            	);
            	//创建session	
 			$this->session->set_userdata($data);	   

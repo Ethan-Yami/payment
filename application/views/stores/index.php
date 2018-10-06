@@ -7,6 +7,20 @@
     html,body{margin:0px;padding: 0px;}   
     .nav-link{padding-top: 0px;}
     tr,td{margin-top: 0px;}
+    .pagination{
+        width: auto;
+        min-width: 100px;
+        max-width: 280px;   
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        padding-left: 0;
+        list-style: none;
+        border-radius: .25rem;
+        background-color: white;
+        text-align: center;
+    }
+    .page-item{width:48px;height: 40px;text-align: center;line-height: 40px;border-right: 1px solid #ddd; }
 </style>
 
 {% endblock %}
@@ -63,7 +77,8 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr>
+                {% for v in result %}
+                  <tr id="goods-{{v['id']}}">
                       <td class="text-center">
                         <div class="form-check">
                               <label class="form-check-label">
@@ -77,31 +92,39 @@
                       </td>
                       <td>
                         <div class="img-container text-center " style="float: left;">
-                            <img src="https://images.thenorthface.com/is/image/TheNorthFace/NF0A2VFL_619_hero" style="width: 40px">
+                            <img src="{{v['thumb']}}" style="width: 40px">
                         </div>
                         <div class="td-name" style="float: left;padding-left:8px;">
-                          <a href="#jacket">Spring Jacket</a>
-                          <br><small>by Dolce&amp;Gabbana</small>
+                          <a href="#jacket">{{v['name']}}</a>
+                          <br><small>{{v['sn']}}</small>
                         </div>
 
                       </td>
-                      <td>Develop</td>
-                      <td>2013</td>
-                      <td class="text-center">&euro; 99,225</td>
+                      <td>{{v['category_name']}}</td>
+                      <td>{{v['retail_price']}}</td>
+                      <td class="text-center">{{v['quantity']}}</td>
                       <td class="td-actions text-center">
-                          <button type="button" rel="tooltip" class="btn btn-success">
+                          <button type="button" rel="tooltip" onclick="edit('{{v['id']}}');" class="btn btn-success">
                               <i class="material-icons">edit</i>
                           </button>
-                          <button type="button" rel="tooltip" class="btn btn-danger">
+                          <button type="button" onclick="del('{{v['id']}}');" rel="tooltip" class="btn btn-danger">
                               <i class="material-icons">close</i>
                           </button>
                       </td>
                   </tr>
+                {% endfor %}
 
                  
                 
               </tbody>
           </table>
+
+           
+
+         
+              
+              {{page|raw}}
+           
       </div>
         
     </div>
@@ -127,6 +150,27 @@
       });
 
     });
+
+    function edit(id){
+      window.location.href="/store/goods/edit/"+id;
+    }
+
+    function del(id){
+
+      $.ajax({
+        url: '/store/goods/del',
+        type: 'POST',
+        dataType: 'json',
+        data: {"id": id},
+      })
+      .done(function(ret) {
+        if(ret.status=='success'){
+          $("#goods-"+id).remove();
+          console.log(id);
+        }
+      });
+      
+    }
   </script>
  
 
