@@ -10,10 +10,10 @@
  	private $currentL = 'zh';
 
 
-	public function __construct($config=array('lang'=>'')){
+	public function __construct($config=array('lang'=>'en')){
 
 
-		$lang = $config['lang'];
+		$lang = isset($config['lang']) ? $config['lang'] : '';
 		
 
 
@@ -58,12 +58,12 @@
       	}elseif(false==$lang && false==$slang){
        		$this->CI->load->library('user_agent');
        		$lang = $this->CI->agent->languages();
-       		if(!empty($lang[1]) && preg_match('/-/', $lang[1])){
-       			$lang1 = explode('-', $lang[1]);
+       		if(!empty($lang[0]) && preg_match('/-/', $lang[0])){
+       			$lang1 = explode('-', $lang[0]);
        			$chooseL = $lang1[0];
        		
-       		}else{
-       			$chooseL = $lang[1];
+       		}else{       			
+       			$chooseL = 'en';
        		}
        		$this->currentL = $chooseL;
        		$newdata = array(

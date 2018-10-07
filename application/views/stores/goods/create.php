@@ -1,5 +1,5 @@
 {% extends "/layout/store_boot.html" %}
-
+{% set active_now='goods' %}
 
 {% block head %}
  {{ parent() }}
@@ -14,14 +14,15 @@
     top: 28px;
     text-align: center;
     left: 96px;}
-    .goods-thumb #thumb{
-      width: 180px;
-      height: 180px;
-      border: 1px solid black;
-      margin: 0 auto;
+    #thumb{
+      width: 100px;
+      height: 100px;     
+      border: 1px solid black;                  
     }
-    .goods-thumb #thumb img{width: 100%;height: 100%;}
-
+    #thumb img{width: 100%;height: 100%;}
+   .card .card-body .form-group {
+        margin: 16px 0 0;
+    }
 </style>
  
 {% endblock %}
@@ -58,10 +59,8 @@
               <div class="col-md-6">
                  
                 <div class="goods-thumb text-center">
-                  <div id="thumb">
-                    
-                  </div>
-                  <small>商品图片</small>
+                  
+                 <!-- picture lib -->
                 </div>
 
               </div>
@@ -115,10 +114,13 @@
               <div class="form-group col-md-1">
                 <a href="javascript:void(0);" class="btn btn-info btn-sm thumb-chose">选择</a>
               </div>
-              <div class="form-group col-md-3">               
-              </div>          
+             
             </div>
-           
+            <div class="form-group col-md-5"> 
+                <div id="thumb">
+                  
+                </div>              
+            </div>         
             <div class="form-row">
               <div class="form-group col-md-8 text-center">
                  <button type="submit" class="btn btn-success">确认增加</button>

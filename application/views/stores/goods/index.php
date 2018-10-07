@@ -1,5 +1,4 @@
 {% extends "/layout/store_boot.html" %}
-
 {% set active_now='goods' %}
 
 {% block head %}
@@ -9,8 +8,10 @@
     .nav-link{padding-top: 0px;}
     tr,td{margin-top: 0px;}
     .pagination{
+
         padding-left: 0;
-        list-style: none;           
+        list-style: none;
+           
         text-align: center;
     }
     .page-item{width:48px;height: 40px;text-align: center;line-height: 40px;border-right: 1px solid #ddd;background-color: white;  border-radius: .25rem;    }
@@ -23,7 +24,7 @@
 
   <ul class="nav" style="background-color: white; height: 48px;line-height: 48px;">
   <li class="nav-item">
-     <a class="nav-link disabled" href="/store/goods/index">全部商品</a>
+    <a class="nav-link disabled" href="/store/goods/index">全部商品</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="/store/goods/category">商品分类</a>
@@ -69,7 +70,7 @@
                       <th class="text-center">操作</th>
                   </tr>
               </thead>
-              <tbody id="list-public">
+             <tbody id="list-public">
 
                   <tr v-for="item in items" :id="item.id">
                       <td class="text-center">
@@ -88,7 +89,7 @@
                             <img :src="item.thumb" style="width: 40px">
                         </div>
                         <div class="td-name text-center" style="float: left;padding-left:8px;">
-                          <a href="#jacket">${ item.name }</a>
+                          <a href="javascript:void(0);">${ item.name }</a>
                           <br><small>${ item.sn }</small>
                         </div>
 
@@ -140,13 +141,12 @@
           items: goods
         }
       });
-
-      $('.edit').click(function(event) {
+       $('.edit').click(function(event) {
         /* Act on the event */
         var id = $(this).data('id');
         window.location.href="/store/goods/edit/"+id;
       });
-      
+
       $(".del").click(function(event) {
         /* Act on the event */
           var id = $(this).data('id');
@@ -180,7 +180,7 @@
 
     });
 
-  
+    
   </script>
  
 

@@ -118,10 +118,12 @@
 
 
 
-
-		public function getall($num,$offset,$tb,$arr=array(),$time=array()){
+		public function getall($tb,$select,$where,$num,$offset,$time=array()){
 			header("Content-type: text/html;charset=utf-8");
 			//$this->db->order_by('addtime','desc');
+			foreach ($select as $value) {
+				$this->db->select("{$value}");
+			}
 
 			if(isset($time) && !empty($time)){
 
@@ -134,15 +136,14 @@
 
 
 
-			if(isset($arr) && !empty($arr)){
+			if(isset($where) && !empty($where)){
 
-				foreach ($arr as $key => $value) {
+				foreach ($where as $key => $value) {
 					$this->db->where($key,$value);
 				}
 
 			}
-			 //$this->db->select('id, username, truename, money, credit, cellphone, address, job, addtime');
-			// $this->db->where('username',$username);
+			
 			 $query=$this->db->get($tb,$num,$offset);
 
 			// echo $this->db->last_query();
@@ -157,6 +158,16 @@
 				$this->db->select("{$value}");
 			}
 
+
+
+			if(isset($where) && !empty($where)){
+				foreach ($where as $key => $value) {
+					$this->db->where($key,$value);
+				}
+			}
+			
+			//$this->db->where($key,$value);
+
 			if(isset($time) && !empty($time)){
 
 				foreach ($time as $key => $value) {
@@ -166,11 +177,6 @@
 
 
 
-			if(isset($arr) && !empty($arr)){
-				foreach ($arr as $key => $value) {
-					$this->db->where($key,$value);
-				}
-			}
 
 			if(isset($join) && !empty($join)){
 				

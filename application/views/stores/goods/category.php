@@ -1,5 +1,4 @@
 {% extends "/layout/store_boot.html" %}
-
 {% set active_now='goods' %}
 
 {% block head %}
@@ -9,8 +8,10 @@
     .nav-link{padding-top: 0px;}
     tr,td{margin-top: 0px;}
     .pagination{
+
         padding-left: 0;
-        list-style: none;           
+        list-style: none;
+           
         text-align: center;
     }
     .page-item{width:48px;height: 40px;text-align: center;line-height: 40px;border-right: 1px solid #ddd;background-color: white;  border-radius: .25rem;    }
@@ -23,10 +24,10 @@
 
   <ul class="nav" style="background-color: white; height: 48px;line-height: 48px;">
   <li class="nav-item">
-     <a class="nav-link disabled" href="/store/goods/index">全部商品</a>
+    <a class="nav-link" href="/store/goods/index">全部商品</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/store/goods/category">商品分类</a>
+    <a class="nav-link disabled" href="/store/goods/category">商品分类</a>
   </li>
  
 </ul>
@@ -39,10 +40,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <a href='/store/goods/create' class="btn btn-info">增加</a>
-        <button type="button" class="btn btn-success">导入</button>
-        <button type="button" class="btn btn-danger">导出</button>       
-
+       <a href='/store/goods/create' class="btn btn-info">增加</a>
       </div>
 
       <div class="col-md-12"> 
@@ -62,10 +60,10 @@
 
                       </th>
                     
-                      <th>名称/编码</th>
-                      <th>分类</th>
-                      <th>售价</th>
-                      <th class="text-center">库存</th>
+                      <th>分类名称</th>
+                      <th>排序</th>
+                      <th>状态</th>
+                      <th class="text-center">创建时间</th>
                       <th class="text-center">操作</th>
                   </tr>
               </thead>
@@ -87,14 +85,14 @@
                         <div class="img-container text-center " style="float: left;">
                             <img :src="item.thumb" style="width: 40px">
                         </div>
-                        <div class="td-name text-center" style="float: left;padding-left:8px;">
+                        <div class="td-name" style="float: left;padding-left:8px;">
                           <a href="#jacket">${ item.name }</a>
-                          <br><small>${ item.sn }</small>
+                          
                         </div>
 
                       </td>
-                      <td>${item.category_name}</td>
-                      <td>${ item.retail_price }</td>
+                      <td>${item.index}</td>
+                      <td>${ item.c }</td>
                       <td class="text-center">${ item.quantity}</td>
                       <td class="td-actions text-center">
                           <button type="button" rel="tooltip" :data-id='item.id' class="btn btn-success edit">
@@ -126,45 +124,19 @@
 
 
 {% block script %}
-  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script type="text/javascript">
     $(function(){
 
-      var goods = {{result|json_encode|raw }};
-      console.log(goods);
+      var category = {{result|json_encode|raw }};
      
       new Vue({
         delimiters: ['${', '}'],
         el: '#list-public',
         data: {
-          items: goods
+          items: category
         }
       });
-
-      $('.edit').click(function(event) {
-        /* Act on the event */
-        var id = $(this).data('id');
-        window.location.href="/store/goods/edit/"+id;
-      });
-      
-      $(".del").click(function(event) {
-        /* Act on the event */
-          var id = $(this).data('id');
-          console.log(id);
-          $.ajax({
-            url: '/store/goods/del',
-            type: 'POST',
-            dataType: 'json',
-            data: {"id": id},
-          })
-          .done(function(ret) {
-            if(ret.status=='success'){
-              $("#"+id).remove();
-              console.log(id);
-            }
-          });  
-      });
-
       $(".goods-all").click(function(event) {
         $(".goods_check").each(function(){
           var flag = $(this).attr('checked');
@@ -180,7 +152,26 @@
 
     });
 
-  
+    function edit(id){
+      window.location.href="/store/goods/edit/"+id;
+    }
+
+    function del(id){
+
+      $.ajax({
+        url: '/store/goods/del',
+        type: 'POST',
+        dataType: 'json',
+        data: {"id": id},
+      })
+      .done(function(ret) {
+        if(ret.status=='success'){
+          $("#goods-"+id).remove();
+          console.log(id);
+        }
+      });
+      
+    }
   </script>
  
 

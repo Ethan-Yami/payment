@@ -21,22 +21,59 @@ class Goods extends CI_Controller {
         $this->_config = $config;
     }
 
+  
+    public function index(){
+
+        $userId = $this->_config['id'];
+        $storeId = $this->_config['store_id'];
+
+        $where = array('user_id'=>$userId,'store_id'=>$storeId);
+        $config_p = array('url'=>site_url('store/goods/index'),'table'=>'goods','per_page'=>8,'uri_segment'=>4);
+        $this->load->model('Goods_model');
+        $offset = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+
+        $data['page'] = $this->Goods_model->feiyeconfig($config_p,$where);
+        $where['goods.user_id'] = $where['user_id'];
+        $where['goods.store_id'] = $where['store_id'];
+        unset($where['store_id']);
+        unset($where['user_id']);
+        $query = $this->Goods_model->goodsall(
+            'goods',
+            ['goods.id,goods.name,goods.sn,goods.thumb,goods.quantity,goods.retail_price,category.name as category_name'],
+            $where,
+            ['table'=>'category','on'=>'goods.cate_id = category.id','way'=>'left'],
+            $config_p['per_page'],
+            $offset,
+            array('goods.id'=>'DESC')
+           
+        );
+
+
+        $results = $query->result_array();
+        
+
+        $data['result'] = $results;
+    	
+    	$this->load->library('twig');	
+		$this->twig->display('stores/index.php', $data);
+    }
+
     public function create() {
         
         $userId = $this->_config['id'];
         $storeId = $this->_config['store_id'];
-      	
+        
         if($this->input->is_ajax_request()){
-        	$goods = $this->input->get_post('goods', TRUE); 
+            $goods = $this->input->get_post('goods', TRUE); 
             $this->load->model('Goods_model');
+            $i = 1;
             $goods['user_id'] = $userId;
             $goods['store_id'] = $storeId;
-
-            $id = $this->Goods_model->insert_data('goods',$goods,'id');
+            $id = $this->Goods_model->insert_data('goods',$goods,'id');            
             $result['data']=['id'=>$id];            
             $result['status']='success';
             echo json_encode($result);
-        	exit();
+            exit();
         }
 
         $this->load->model('Goods_model');
@@ -49,8 +86,8 @@ class Goods extends CI_Controller {
         );
         
         
-        $this->load->library('twig');	
-		$this->twig->display('stores/goods/create.php', ['cate'=>$category]);
+        $this->load->library('twig');   
+        $this->twig->display('stores/goods/create.php', ['cate'=>$category]);
     }
 
     public function edit(){
@@ -105,40 +142,36 @@ class Goods extends CI_Controller {
 
     }
 
-    public function index(){
 
+    public function category(){
         $userId = $this->_config['id'];
         $storeId = $this->_config['store_id'];
 
         $where = array('user_id'=>$userId,'store_id'=>$storeId);
-        $config_p = array('url'=>site_url('store/goods/index'),'table'=>'goods','per_page'=>10,'uri_segment'=>4);
+        $config_p = array('url'=>site_url('store/goods/category'),'table'=>'category','per_page'=>8,'uri_segment'=>4);
         $this->load->model('Goods_model');
         $offset = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
 
         $data['page'] = $this->Goods_model->feiyeconfig($config_p,$where);
-        $query = $this->Goods_model->goodsall(
-            'goods',
-            ['goods.id,goods.name,goods.sn,goods.thumb,goods.quantity,goods.retail_price,category.name as category_name'],
-            $where,
-            ['table'=>'category','on'=>'goods.cate_id = category.id','way'=>'left'],
+      
+        $query = $this->Goods_model->getall(
+            'category',
+            ["*"],
+            $where,          
             $config_p['per_page'],
             $offset,
-            array('goods.created_at'=>'DESC','goods.id'=>'ASC')
+            array('id'=>'DESC')
            
         );
 
 
-        $results = $query->result_array();
-
+        $results = $query->result_array();        
+        
 
         $data['result'] = $results;
-    	
-    	$this->load->library('twig');	
-		$this->twig->display('stores/index.php', $data);
-    }
-
-    public function category(){
-
+        
+        $this->load->library('twig');   
+        $this->twig->display('stores/goods/category.php', $data);
 
     }
 

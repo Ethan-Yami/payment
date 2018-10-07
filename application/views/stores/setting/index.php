@@ -1,5 +1,6 @@
 {% extends "/layout/store_boot.html" %}
-{% set active_now='goods' %}
+{% set active_now='setting' %}
+
 
 {% block head %}
  {{ parent() }}
@@ -16,11 +17,11 @@
     left: 96px;}
     #thumb{
       width: 100px;
-      height: 100px;   
-      border: 1px solid black;
+      height: 100px;     
+      border: 1px solid black;                  
     }
     #thumb img{width: 100%;height: 100%;}
-    .card .card-body .form-group {
+   .card .card-body .form-group {
         margin: 16px 0 0;
     }
 </style>
@@ -31,7 +32,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb" style="background-color: white;">
     <li class="breadcrumb-item"><a href="/store/goods/index">全部商品</a></li> 
-    <li class="breadcrumb-item active" aria-current="page">编辑</li>
+    <li class="breadcrumb-item active" aria-current="page">增加</li>
   </ol>
 </nav>
 {% endblock %}
@@ -44,7 +45,7 @@
      
       <div class="card" style="margin-top: 0px;">
         <div class="card-header card-header-info" style="margin:0px;">
-          编辑商品
+          {{lang['step1']}}
         </div>
         <div class="card-body">
           
@@ -53,81 +54,69 @@
             
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label>商品名称</label>
-                <input type="text" name="goods[name]" value="{{goods['name']}}" class="form-control">
+                <label>{{lang['store']}}</label>
+                <input type="text" name="goods[name]" value="{{store['store_name']}}" class="form-control">
               </div>
-              <div class="col-md-6">
-                 
-                <div class="goods-thumb text-center">
-                 
-                 
-                </div>
-
-              </div>
+              
             </div>
 
             <div class="form-row">
-              <div class="form-group col-md-6 col-sm-2" >
+              <div class="form-group col-md-6" >
                 
-                    <label style="position: relative;top: -20px;">商品分类</label>
-                    <select id="category-public" name="goods[cate_id]" class="form-control" style="margin-top:-28px;padding-top:0px;height:36px;">                                    
-                       {% for v in cate %}
-                       <option value="{{v['id']}}" {% if v['id'] == goods['cate_id'] %} selected {% endif %}>{{v['name']}}</option>
-                       {% endfor %}
+                    <label style="position: relative;top: -20px;">{{lang['store_type']}}</label>
+                    <select id="category-public" name="goods[cate_id]" class="form-control" style="margin-top:-28px;padding-top:0px;height:36px;">
+
+                      <option value="1" {% if store['store_type'] == 1 %} selected="selected" {% endif %}>		{{lang['store_restaurant']}}
+                      </option>
+                      <option value="2" {% if store['store_type'] == 2 %} selected="selected" {% endif %}>
+                      	{{lang['store_coffeebar']}}
+                  	  </option>
+                      <option value="3" {% if store['store_type'] == 3 %} selected="selected"{% endif %}>		{{lang['store_bubbletea']}}
+                      </option>                      
                     </select>
-                   
               </div>
-              <div class="form-group col-md-6 col-sm-2">
-                 <a href="javascript:void(0);" class="btn btn-info btn-sm" id="category-create">创建</a>
-              </div>
+          
             </div>
 
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label>商品编码</label>
-                <input type="text" name="goods[sn]" class="form-control" value="{{goods['sn']}}">
-
-              
+                <label>{{lang['store_contact']}}</label>
+                <input type="text" name="goods[sn]" value="{{store['store_contact']}}" class="form-control">
               </div>              
                      
+            </div>
+
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>{{lang['store_address']}}</label>
+                <input type="text" name="goods[thumb]" value="{{store['store_address']}}"  class="form-control" id="fechurl">
+              </div>
+              
+             
             </div>
 
             <div class="form-row">
               <div class="form-group col-md-2">
                 <label for="inputEmail4">零售价</label>
-                <input type="text" name="goods[retail_price]" value="{{goods['retail_price']}}" class="form-control">
+                <input type="text" name="goods[retail_price]" class="form-control">
               </div>
               <div class="form-group col-md-2">
                 <label for="inputPassword4">进货价</label>
-                <input type="text" name="goods[cost_price]" class="form-control" value="{{goods['cost_price']}}">
+                <input type="text" name="goods[cost_price]" class="form-control">
               </div>
 
               <div class="form-group col-md-2">
                 <label for="inputPassword4">库存</label>
-                <input type="text" name="goods[quantity]" value="{{goods['quantity']}}" class="form-control">
+                <input type="text" name="goods[quantity]" class="form-control">
               </div>
              
             </div>          
 
+                     
             <div class="form-row">
-              <div class="form-group col-md-6">
-                <label>图片</label>
-                <input type="text"  name="goods[thumb]" value="{{goods['thumb']}}" class="form-control thumb-chose" id="fechurl">
-              </div>
-            <!--   <div class="form-group col-md-1">
-                <a href="javascript:void(0);" class="btn btn-info btn-sm thumb-chose">选择</a>
-              </div> -->
-                      
-            </div>
-            <div class="form-group col-md-3">               
-                  <div id="thumb">
-                    <img src="{{goods['thumb']}}">
-                  </div>
-              </div>  
-            <input type="hidden" name="id" value="{{goods['id']}}">
-            <div class="form-row">
-              <div class="form-group col-md-8 text-center">
-                 <button type="submit" class="btn btn-success">确认修改</button>
+              <div class="form-group col-md-6 text-center">
+                 <button type="submit" class="btn btn-success">确认增加</button>
               </div>
                    
             </div>
@@ -260,7 +249,11 @@
             .done(function(ret) {
               console.log(ret);
               if(ret.status=='success'){
-                layer.msg('修改完成!', {icon: 6, time: 2000});
+                layer.msg('增加完成!', {icon: 6, time: 2000});
+                setTimeout(function() {
+                  window.location.reload();
+                }, 2000);  
+                
               }
               console.log("success");
             });
